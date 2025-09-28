@@ -78,7 +78,7 @@ jobs:
 
       - name: Run tests
         working-directory: ./frontend
-        run: pnpm run coverage
+        run: pnpm run test
 
   e2e-tests:
     name: Playwright E2E

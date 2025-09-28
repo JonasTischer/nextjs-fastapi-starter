@@ -12,7 +12,7 @@
     "generate-client": "openapi-ts",
     "test": "jest",
     "test:e2e": "playwright test",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "openapi-ts": "openapi-ts"
   },
   "dependencies": {
