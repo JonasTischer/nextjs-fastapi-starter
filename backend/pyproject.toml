@@ -1,34 +1,30 @@
 [project]
 name = "app"
-version = "0.0.6"
+version = "0.0.1"
 description = ""
-authors = [{ name = "Anderson Resende", email = "anderson@vinta.com.br" }]
-requires-python = ">=3.12,<3.13"
+authors = [{ name = "Jonas Tischer", email = "jonas.tischer@gmail.com" }]
+requires-python = ">=3.12"
 readme = "README.md"
 dependencies = [
-    "fastapi[standard]>=0.115.0,<0.116",
-    "asyncpg>=0.29.0,<0.30",
-    "fastapi-users[sqlalchemy]>=13.0.0,<14",
-    "pydantic-settings>=2.5.2,<3",
-    "fastapi-mail>=1.4.1,<2",
-    "fastapi-pagination==0.13.3",
-    "sse-starlette>=3.0.2",
+    "fastapi[standard]>=0.117.1",
+    "asyncpg>=0.30.0",
+    "fastapi-users[sqlalchemy]>=14.0.1",
+    "pydantic-settings>=2.11",
+    "fastapi-mail>=1.4.1",
+    "fastapi-pagination>=0.14.1"
 ]
 
 [dependency-groups]
 dev = [
-    "pre-commit>=3.4.0,<4",
-    "ruff>=0.1.0,<0.2",
-    "watchdog>=5.0.3,<6",
-    "python-dotenv>=1.0.1,<2",
-    "pytest>=8.3.3,<9",
-    "pytest-mock>=3.14.0,<4",
-    "mypy>=1.13.0,<2",
-    "coveralls>=4.0.1,<5",
-    "alembic>=1.14.0,<2",
-    "pytest-asyncio>=0.24.0,<0.25",
-    "mkdocs-material>=9.6.9",
-    "mkdocs-material[imaging]>=9.6.9",
+    "pre-commit>=3.8.0",
+    "ruff>=0.1.15",
+    "watchdog>=5.0.3",
+    "python-dotenv>=1.0.1",
+    "pytest>=8.3.4",
+    "pytest-mock>=3.14.0",
+    "mypy>=1.14.1",
+    "alembic>=1.14.0",
+    "pytest-asyncio>=0.24.0",
 ]
 
 [tool.uv]

@@ -130,7 +130,7 @@ export const zUserUpdate = z.object({
  */
 export const zLogin = z.object({
     grant_type: z.optional(z.union([
-        z.string().regex(/password/),
+        z.string().regex(/^password$/),
         z.null()
     ])),
     username: z.string(),
