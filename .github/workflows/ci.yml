@@ -41,15 +41,15 @@ jobs:
         uses: astral-sh/setup-uv@v5
 
       - name: Install the project
-        working-directory: ./fastapi_backend
+        working-directory: ./backend
         run: uv sync --all-extras --dev
 
       - name: Run tests
-        working-directory: ./fastapi_backend
+        working-directory: ./backend
         run: uv run coverage run -m pytest
 
       - name: Generate XML coverage report
-        working-directory: ./fastapi_backend
+        working-directory: ./backend
         run: uv run coverage xml -o coverage.xml
 
   build-frontend:
@@ -73,11 +73,11 @@ jobs:
           node-version: "20"
 
       - name: Install Node dependencies
-        working-directory: ./nextjs-frontend
+        working-directory: ./frontend
         run: pnpm install
 
       - name: Run tests
-        working-directory: ./nextjs-frontend
+        working-directory: ./frontend
         run: pnpm run coverage
 
   e2e-tests:
@@ -118,11 +118,11 @@ jobs:
           node-version: "20"
 
       - name: Install Node dependencies
-        working-directory: ./nextjs-frontend
+        working-directory: ./frontend
         run: pnpm install
 
       - name: Install Playwright browsers
-        working-directory: ./nextjs-frontend
+        working-directory: ./frontend
         run: pnpm exec playwright install --with-deps
 
       - name: Set up Python
@@ -134,15 +134,15 @@ jobs:
         uses: astral-sh/setup-uv@v5
 
       - name: Install backend dependencies
-        working-directory: ./fastapi_backend
+        working-directory: ./backend
         run: uv sync --all-extras --dev
 
       - name: Run database migrations
-        working-directory: ./fastapi_backend
+        working-directory: ./backend
         run: uv run alembic upgrade head
 
       - name: Start backend server
-        working-directory: ./fastapi_backend
+        working-directory: ./backend
         run: |
           uv run uvicorn src.main:app --host 0.0.0.0 --port 8000 &
           echo $! > ../backend.pid
@@ -151,7 +151,7 @@ jobs:
         run: pnpm dlx wait-on http://127.0.0.1:8000/openapi.json
 
       - name: Run Playwright tests
-        working-directory: ./nextjs-frontend
+        working-directory: ./frontend
         run: pnpm run test:e2e
 
       - name: Stop backend server

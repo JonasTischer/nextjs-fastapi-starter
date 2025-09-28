@@ -27,6 +27,7 @@ export async function createTestUser(
     data: {
       email,
       password,
+      is_verified: true, // Make test users verified by default
     },
   });
 
