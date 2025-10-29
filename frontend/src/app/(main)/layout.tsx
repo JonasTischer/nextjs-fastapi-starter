@@ -11,17 +11,18 @@ function AuthenticatedLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<SidebarProvider>
-			<AppSidebar />
+		<SidebarProvider
+			style={
+				{
+					"--sidebar-width": "calc(var(--spacing) * 72)",
+					"--header-height": "calc(var(--spacing) * 12)",
+				} as React.CSSProperties
+			}
+		>
+			<AppSidebar variant="inset" />
 			<SidebarInset>
-				<div className="flex flex-col h-screen overflow-hidden">
-					<div className="shrink-0">
-						<SiteHeader />
-					</div>
-					<div className="grow overflow-hidden">
-						<div className="h-full md:p-2">{children}</div>
-					</div>
-				</div>
+				<SiteHeader />
+				{children}
 			</SidebarInset>
 		</SidebarProvider>
 	);

@@ -2,89 +2,146 @@
 
 import type * as React from "react";
 import {
-	AudioWaveform,
-	BookOpen,
-	Bot,
-	Command,
-	Frame,
-	GalleryVerticalEnd,
-	Settings2,
-	SquareTerminal,
-} from "lucide-react";
+	IconCamera,
+	IconChartBar,
+	IconDashboard,
+	IconDatabase,
+	IconFileAi,
+	IconFileDescription,
+	IconFileWord,
+	IconFolder,
+	IconHelp,
+	IconInnerShadowTop,
+	IconListDetails,
+	IconReport,
+	IconSearch,
+	IconSettings,
+	IconUsers,
+} from "@tabler/icons-react";
 
+import { NavDocuments } from "@/components/nav-documents";
 import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
+import { NavSecondary } from "@/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
-import { NavProUpgrade } from "@/components/nav-pro-upgrade";
-import { TeamSwitcher } from "@/components/team-switcher";
 import {
 	Sidebar,
 	SidebarContent,
 	SidebarFooter,
 	SidebarHeader,
-	SidebarRail,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useUserContext } from "@/providers/user-provider";
 
-// This is sample data.
 const data = {
-	user: {
-		name: "shadcn",
-		email: "m@example.com",
-		avatar: "/avatars/shadcn.jpg",
-	},
-	teams: [
-		{
-			name: "Acme Inc",
-			logo: GalleryVerticalEnd,
-			plan: "Enterprise",
-		},
-		{
-			name: "Acme Corp.",
-			logo: AudioWaveform,
-			plan: "Startup",
-		},
-		{
-			name: "Evil Corp.",
-			logo: Command,
-			plan: "Free",
-		},
-	],
 	navMain: [
 		{
-			title: "Projects",
-			url: "projects",
-			icon: SquareTerminal,
-			isActive: true,
+			title: "Dashboard",
+			url: "#",
+			icon: IconDashboard,
 		},
 		{
-			title: "Conversations",
-			url: "conversations",
-			icon: Bot,
+			title: "Lifecycle",
+			url: "#",
+			icon: IconListDetails,
 		},
 		{
 			title: "Analytics",
-			url: "analytics",
-			icon: BookOpen,
+			url: "#",
+			icon: IconChartBar,
 		},
 		{
-			title: "Sales",
-			url: "sales",
-			icon: Settings2,
+			title: "Projects",
+			url: "#",
+			icon: IconFolder,
 		},
-	],
-	projects: [
 		{
-			name: "Project1",
-			url: "projects",
-			icon: Frame,
+			title: "Team",
+			url: "#",
+			icon: IconUsers,
 		},
 	],
-	conversations: [
+	navClouds: [
 		{
-			name: "Conversation 1",
-			url: "conversations",
-			icon: Bot,
+			title: "Capture",
+			icon: IconCamera,
+			isActive: true,
+			url: "#",
+			items: [
+				{
+					title: "Active Proposals",
+					url: "#",
+				},
+				{
+					title: "Archived",
+					url: "#",
+				},
+			],
+		},
+		{
+			title: "Proposal",
+			icon: IconFileDescription,
+			url: "#",
+			items: [
+				{
+					title: "Active Proposals",
+					url: "#",
+				},
+				{
+					title: "Archived",
+					url: "#",
+				},
+			],
+		},
+		{
+			title: "Prompts",
+			icon: IconFileAi,
+			url: "#",
+			items: [
+				{
+					title: "Active Proposals",
+					url: "#",
+				},
+				{
+					title: "Archived",
+					url: "#",
+				},
+			],
+		},
+	],
+	navSecondary: [
+		{
+			title: "Settings",
+			url: "#",
+			icon: IconSettings,
+		},
+		{
+			title: "Get Help",
+			url: "#",
+			icon: IconHelp,
+		},
+		{
+			title: "Search",
+			url: "#",
+			icon: IconSearch,
+		},
+	],
+	documents: [
+		{
+			name: "Data Library",
+			url: "#",
+			icon: IconDatabase,
+		},
+		{
+			name: "Reports",
+			url: "#",
+			icon: IconReport,
+		},
+		{
+			name: "Word Assistant",
+			url: "#",
+			icon: IconFileWord,
 		},
 	],
 };
@@ -92,19 +149,30 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { user } = useUserContext();
 	return (
-		<Sidebar collapsible="icon" {...props}>
+		<Sidebar collapsible="offcanvas" {...props}>
 			<SidebarHeader>
-				<TeamSwitcher teams={data.teams} />
+				<SidebarMenu>
+					<SidebarMenuItem>
+						<SidebarMenuButton
+							asChild
+							className="data-[slot=sidebar-menu-button]:!p-1.5"
+						>
+							<a href="/">
+								<IconInnerShadowTop className="!size-5" />
+								<span className="text-base font-semibold">Acme Inc.</span>
+							</a>
+						</SidebarMenuButton>
+					</SidebarMenuItem>
+				</SidebarMenu>
 			</SidebarHeader>
 			<SidebarContent>
 				<NavMain items={data.navMain} />
-				<NavProjects projects={data.projects} />
-				<NavProUpgrade />
+				<NavDocuments items={data.documents} />
+				<NavSecondary items={data.navSecondary} className="mt-auto" />
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser user={user} />
 			</SidebarFooter>
-			<SidebarRail />
 		</Sidebar>
 	);
 }
