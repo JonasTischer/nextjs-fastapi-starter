@@ -3,14 +3,6 @@
 import { z } from 'zod';
 
 /**
- * BearerResponse
- */
-export const zBearerResponse = z.object({
-    access_token: z.string(),
-    token_type: z.string()
-});
-
-/**
  * Body_auth-reset:forgot_password
  */
 export const zBodyAuthResetForgotPassword = z.object({
@@ -152,16 +144,21 @@ export const zAuthJwtLoginData = z.object({
     query: z.optional(z.never())
 });
 
-/**
- * Successful Response
- */
-export const zAuthJwtLoginResponse = zBearerResponse;
+export const zAuthJwtLoginResponse = z.union([
+    z.unknown(),
+    z.void()
+]);
 
 export const zAuthJwtLogoutData = z.object({
     body: z.optional(z.never()),
     path: z.optional(z.never()),
     query: z.optional(z.never())
 });
+
+export const zAuthJwtLogoutResponse = z.union([
+    z.unknown(),
+    z.void()
+]);
 
 export const zRegisterRegisterData = z.object({
     body: zUserCreate,

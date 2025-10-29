@@ -27,13 +27,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BearerResponse"
-                },
-                "example": {
-                  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOTIyMWZmYzktNjQwZi00MzcyLTg2ZDMtY2U2NDJjYmE1NjAzIiwiYXVkIjoiZmFzdGFwaS11c2VyczphdXRoIiwiZXhwIjoxNTcxNTA0MTkzfQ.M10bjOe45I5Ncu_uXvOmVV8QxnL-nZfcH96U90JaocI",
-                  "token_type": "bearer"
-                }
+                "schema": {}
               }
             }
           },
@@ -60,6 +54,9 @@
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
           },
           "422": {
             "description": "Validation Error",
@@ -92,11 +89,14 @@
           },
           "401": {
             "description": "Missing token or inactive user."
+          },
+          "204": {
+            "description": "No Content"
           }
         },
         "security": [
           {
-            "OAuth2PasswordBearer": []
+            "APIKeyCookie": []
           }
         ]
       }
@@ -402,7 +402,7 @@
         },
         "security": [
           {
-            "OAuth2PasswordBearer": []
+            "APIKeyCookie": []
           }
         ]
       },
@@ -476,7 +476,7 @@
         },
         "security": [
           {
-            "OAuth2PasswordBearer": []
+            "APIKeyCookie": []
           }
         ]
       }
@@ -490,7 +490,7 @@
         "operationId": "users:user",
         "security": [
           {
-            "OAuth2PasswordBearer": []
+            "APIKeyCookie": []
           }
         ],
         "parameters": [
@@ -544,7 +544,7 @@
         "operationId": "users:patch_user",
         "security": [
           {
-            "OAuth2PasswordBearer": []
+            "APIKeyCookie": []
           }
         ],
         "parameters": [
@@ -635,7 +635,7 @@
         "operationId": "users:delete_user",
         "security": [
           {
-            "OAuth2PasswordBearer": []
+            "APIKeyCookie": []
           }
         ],
         "parameters": [
@@ -678,24 +678,6 @@
   },
   "components": {
     "schemas": {
-      "BearerResponse": {
-        "properties": {
-          "access_token": {
-            "type": "string",
-            "title": "Access Token"
-          },
-          "token_type": {
-            "type": "string",
-            "title": "Token Type"
-          }
-        },
-        "type": "object",
-        "required": [
-          "access_token",
-          "token_type"
-        ],
-        "title": "BearerResponse"
-      },
       "Body_auth-reset_forgot_password": {
         "properties": {
           "email": {
@@ -1037,14 +1019,10 @@
       }
     },
     "securitySchemes": {
-      "OAuth2PasswordBearer": {
-        "type": "oauth2",
-        "flows": {
-          "password": {
-            "scopes": {},
-            "tokenUrl": "auth/jwt/login"
-          }
-        }
+      "APIKeyCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "access_token"
       }
     }
   }

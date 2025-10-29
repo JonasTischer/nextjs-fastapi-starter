@@ -10,7 +10,7 @@
     "lint:fix": "biome lint --write ./src && biome format --write ./src",
     "format": "biome format --write ./src",
     "generate-client": "openapi-ts",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "openapi-ts": "openapi-ts"

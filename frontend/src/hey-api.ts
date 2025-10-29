@@ -1,15 +1,17 @@
 import type { CreateClientConfig } from "@/generated/backend-client/client.gen";
-import { getAccessToken } from "./utils/token";
 
+/**
+ * API client configuration for HTTPOnly cookie-based authentication
+ *
+ * The backend sets HTTPOnly cookies which are automatically sent with requests
+ * when credentials: "include" is set. No manual token management needed!
+ */
 export const createClientConfig: CreateClientConfig = (config) => ({
 	...config,
 	baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-	auth: async () => {
-		const token = getAccessToken();
-		return token ? `${token}` : undefined;
-	},
+	// No auth function needed - cookies are sent automatically
 	headers: {
 		"Content-Type": "application/json",
 	},
-	credentials: "include",
+	credentials: "include", // This is key - sends cookies automatically
 });

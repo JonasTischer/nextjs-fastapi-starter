@@ -5,20 +5,6 @@ export type ClientOptions = {
 };
 
 /**
- * BearerResponse
- */
-export type BearerResponse = {
-    /**
-     * Access Token
-     */
-    access_token: string;
-    /**
-     * Token Type
-     */
-    token_type: string;
-};
-
-/**
  * Body_auth-reset:forgot_password
  */
 export type BodyAuthResetForgotPassword = {
@@ -234,7 +220,11 @@ export type AuthJwtLoginResponses = {
     /**
      * Successful Response
      */
-    200: BearerResponse;
+    200: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
 
 export type AuthJwtLoginResponse = AuthJwtLoginResponses[keyof AuthJwtLoginResponses];
@@ -258,7 +248,13 @@ export type AuthJwtLogoutResponses = {
      * Successful Response
      */
     200: unknown;
+    /**
+     * No Content
+     */
+    204: void;
 };
+
+export type AuthJwtLogoutResponse = AuthJwtLogoutResponses[keyof AuthJwtLogoutResponses];
 
 export type RegisterRegisterData = {
     body: UserCreate;

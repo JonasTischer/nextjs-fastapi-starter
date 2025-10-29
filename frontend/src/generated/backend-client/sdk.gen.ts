@@ -3,7 +3,7 @@
 import { type Client, type Options as Options2, type TDataShape, urlSearchParamsBodySerializer } from './client';
 import { client } from './client.gen';
 import type { AuthJwtLoginData, AuthJwtLoginErrors, AuthJwtLoginResponses, AuthJwtLogoutData, AuthJwtLogoutErrors, AuthJwtLogoutResponses, RegisterRegisterData, RegisterRegisterErrors, RegisterRegisterResponses, ResetForgotPasswordData, ResetForgotPasswordErrors, ResetForgotPasswordResponses, ResetResetPasswordData, ResetResetPasswordErrors, ResetResetPasswordResponses, UsersCurrentUserData, UsersCurrentUserErrors, UsersCurrentUserResponses, UsersDeleteUserData, UsersDeleteUserErrors, UsersDeleteUserResponses, UsersPatchCurrentUserData, UsersPatchCurrentUserErrors, UsersPatchCurrentUserResponses, UsersPatchUserData, UsersPatchUserErrors, UsersPatchUserResponses, UsersUserData, UsersUserErrors, UsersUserResponses, VerifyRequestTokenData, VerifyRequestTokenErrors, VerifyRequestTokenResponses, VerifyVerifyData, VerifyVerifyErrors, VerifyVerifyResponses } from './types.gen';
-import { zAuthJwtLoginData, zAuthJwtLoginResponse, zAuthJwtLogoutData, zRegisterRegisterData, zRegisterRegisterResponse, zResetForgotPasswordData, zResetResetPasswordData, zUsersCurrentUserData, zUsersCurrentUserResponse, zUsersDeleteUserData, zUsersDeleteUserResponse, zUsersPatchCurrentUserData, zUsersPatchCurrentUserResponse, zUsersPatchUserData, zUsersPatchUserResponse, zUsersUserData, zUsersUserResponse, zVerifyRequestTokenData, zVerifyVerifyData, zVerifyVerifyResponse } from './zod.gen';
+import { zAuthJwtLoginData, zAuthJwtLoginResponse, zAuthJwtLogoutData, zAuthJwtLogoutResponse, zRegisterRegisterData, zRegisterRegisterResponse, zResetForgotPasswordData, zResetResetPasswordData, zUsersCurrentUserData, zUsersCurrentUserResponse, zUsersDeleteUserData, zUsersDeleteUserResponse, zUsersPatchCurrentUserData, zUsersPatchCurrentUserResponse, zUsersPatchUserData, zUsersPatchUserResponse, zUsersUserData, zUsersUserResponse, zVerifyRequestTokenData, zVerifyVerifyData, zVerifyVerifyResponse } from './zod.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -48,10 +48,14 @@ export const authJwtLogout = <ThrowOnError extends boolean = false>(options?: Op
         requestValidator: async (data) => {
             return await zAuthJwtLogoutData.parseAsync(data);
         },
+        responseValidator: async (data) => {
+            return await zAuthJwtLogoutResponse.parseAsync(data);
+        },
         security: [
             {
-                scheme: 'bearer',
-                type: 'http'
+                in: 'cookie',
+                name: 'access_token',
+                type: 'apiKey'
             }
         ],
         url: '/auth/jwt/logout',
@@ -163,8 +167,9 @@ export const usersCurrentUser = <ThrowOnError extends boolean = false>(options?:
         },
         security: [
             {
-                scheme: 'bearer',
-                type: 'http'
+                in: 'cookie',
+                name: 'access_token',
+                type: 'apiKey'
             }
         ],
         url: '/auth/users/me',
@@ -185,8 +190,9 @@ export const usersPatchCurrentUser = <ThrowOnError extends boolean = false>(opti
         },
         security: [
             {
-                scheme: 'bearer',
-                type: 'http'
+                in: 'cookie',
+                name: 'access_token',
+                type: 'apiKey'
             }
         ],
         url: '/auth/users/me',
@@ -211,8 +217,9 @@ export const usersDeleteUser = <ThrowOnError extends boolean = false>(options: O
         },
         security: [
             {
-                scheme: 'bearer',
-                type: 'http'
+                in: 'cookie',
+                name: 'access_token',
+                type: 'apiKey'
             }
         ],
         url: '/auth/users/{id}',
@@ -233,8 +240,9 @@ export const usersUser = <ThrowOnError extends boolean = false>(options: Options
         },
         security: [
             {
-                scheme: 'bearer',
-                type: 'http'
+                in: 'cookie',
+                name: 'access_token',
+                type: 'apiKey'
             }
         ],
         url: '/auth/users/{id}',
@@ -255,8 +263,9 @@ export const usersPatchUser = <ThrowOnError extends boolean = false>(options: Op
         },
         security: [
             {
-                scheme: 'bearer',
-                type: 'http'
+                in: 'cookie',
+                name: 'access_token',
+                type: 'apiKey'
             }
         ],
         url: '/auth/users/{id}',

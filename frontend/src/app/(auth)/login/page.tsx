@@ -3,7 +3,7 @@ import Logo from "@/components/common/logo"; // Assuming you have a Logo compone
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "Login | Django Next Ninja",
+	title: "Login | NextJS FastAPI",
 	description: "Register or login to your account",
 };
 
@@ -15,10 +15,10 @@ export default function LoginPage() {
 				<Logo width={48} height={56} /> {/* Adjust size as needed */}
 				<div className="flex flex-col items-center">
 					<h1 className="text-xl font-semibold tracking-tight medical-text-gradient">
-						Django Next Ninja
+						NextJS FastAPI
 					</h1>
 					<p className="text-sm text-muted-foreground">
-						Your Django Next Ninja Starter Kit
+						Your NextJS FastAPI Starter Kit
 					</p>
 				</div>
 			</div>

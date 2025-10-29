@@ -4,8 +4,7 @@ import {
 	registerRegisterMutation,
 } from "@/generated/backend-client/@tanstack/react-query.gen";
 import { handleApiError } from "@/utils/error-handler";
-import { clearAccessToken, setAccessToken } from "@/utils/token";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -14,7 +13,7 @@ export function useLogin() {
 	return useMutation({
 		...authJwtLoginMutation(),
 		onSuccess: (data) => {
-			setAccessToken(data.access_token);
+			// No need to manually set token - backend sets HTTPOnly cookie automatically
 			router.push("/dashboard");
 			toast.success("Logged in successfully!");
 		},
@@ -26,11 +25,13 @@ export function useLogin() {
 
 export function useLogout() {
 	const router = useRouter();
+	const queryClient = useQueryClient();
 
 	return useMutation({
 		...authJwtLogoutMutation(),
 		onSuccess: () => {
-			clearAccessToken();
+			// No need to manually clear token - backend clears HTTPOnly cookie automatically
+			queryClient.clear(); // Clear all cached data
 			router.push("/");
 		},
 	});
@@ -48,6 +49,7 @@ export function useSignUp() {
 			toast.success("Account created successfully!");
 			if (variables?.body?.email && variables?.body?.password) {
 				// Auto-login after successful registration
+				// Backend will set HTTPOnly cookie on successful login
 				login.mutate({
 					body: {
 						username: variables.body.email,

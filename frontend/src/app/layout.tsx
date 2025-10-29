@@ -9,10 +9,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
 	title: {
-		template: "%s - Django Next Ninja",
-		default: "Django Next Ninja - Your Django Next Ninja Starter Kit",
+		template: "%s - NextJS FastAPI",
+		default: "NextJS FastAPI - Your NextJS FastAPI Starter Kit",
 	},
-	description: "Your Django Next Ninja Starter Kit",
+	description: "Your NextJS FastAPI Starter Kit",
 };
 
 const inter = Inter({

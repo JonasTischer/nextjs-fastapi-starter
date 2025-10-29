@@ -37,28 +37,54 @@ This template features a carefully selected set of technologies to ensure effici
 
 ## Getting Started
 
-### Installing and Activating Pre-Commit Hooks¶
-To activate pre-commit hooks, run the following commands for each configuration file:
+## First-Time Setup
+1. Copy environment templates and adjust secrets as needed:
+   ```bash
+   cp backend/.env.example backend/.env
+   cp frontend/.env.local.example frontend/.env.local
+   ```
+2. Install backend and frontend dependencies and setup precommit hooks:
+   ```bash
+   just setup
+   ```
+3. Start Postgres (if you are not running a local instance already):
+   ```bash
+   just docker-up-db
+   ```
 
-For the local configuration file:
+## Daily Development Flow
+1. Launch the stack:
+   - `just start-backend` – FastAPI with hot reload (uv + uvicorn)
+   - `just start-frontend` – Next.js dev server (`pnpm` script)
+   - `just dev` – Convenience command that kicks off both (stop with `Ctrl+C`)
+2. Regenerate the typed API client whenever backend schemas or routes change:
+   ```bash
+   just generate-client
+   ```
+3. Keep the database schema up to date:
+   ```bash
+   just migrate                # Apply Alembic migrations locally
+   just create-migration MESSAGE="add scenarios table"   # Generate a new migration
+   ```
 
-`pre-commit install -c .pre-commit-config.yaml`
 
-Running Pre-Commit Checks¶
-To manually run the pre-commit checks on all files, use:
+## Common Commands
+**Quality checks**
+- `just typecheck` – Next.js TypeScript project type checking
+- `just lint` – Ruff (Python) + ESLint (frontend) with autofix
+- `just format` – Format validation (no writes)
 
-`pre-commit run --all-files -c .pre-commit-config.yaml`
+**Testing**
+- `just test-backend` – Backend pytest suite
+- `just test-e2e` – Frontend Playwright end-to-end tests
+- `just test` – Backend pytest followed by frontend unit tests
 
-or
+**Docker workflows**
+- `just docker-up-test-db` – Start the test database container
+- `just docker-migrate` – Run Alembic migrations inside the backend container
+- `just docker-create-migration MESSAGE="..."` – Generate migrations via Docker
 
-`pre-commit run --all-files -c .pre-commit-config.docker.yaml``
-
-Updating Pre-Commit Hooks
-
-To update the hooks to their latest versions, run:
-
-`pre-commit autoupdate`
-
+Run `just --list` or `just help` for a full catalog of tasks and descriptions.
 
 ## End-to-end tests
 

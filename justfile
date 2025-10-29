@@ -8,13 +8,13 @@ help:
     @echo "Available commands:"
     @just --list
 
-#
 setup: ## Setup the project
     cd {{FRONTEND_DIR}} && pnpm install
     cd {{BACKEND_DIR}} && uv sync
+    pre-commit install -c .pre-commit-config.yaml
 
 # Backend commands
-start-backend: ## Start the backend server with Django and hot reload
+start-backend: ## Start the backend server with FastAPI and hot reload
 	cd {{BACKEND_DIR}} && ./start.sh
 
 test-backend ARGS="": ## Run backend tests using pytest
@@ -52,6 +52,10 @@ generate-client: ## Generate OpenAPI schema and regenerate frontend client
 	cd {{BACKEND_DIR}} && uv run python -m commands.generate_openapi_schema
 	@echo "Regenerating frontend client..."
 	cd {{FRONTEND_DIR}} && pnpm run generate-client
+
+## Docker commands
+docker-up-db: ## Start the database
+    {{DOCKER_COMPOSE}} up -d db
 
 docker-up-test-db: ## Start the test database
   {{DOCKER_COMPOSE}} up -d db_test

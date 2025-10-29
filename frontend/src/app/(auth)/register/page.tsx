@@ -11,10 +11,10 @@ export default function SignUpPage() {
 					<Logo width={32} height={32} />
 					<div className="flex flex-col">
 						<h1 className="text-lg font-semibold tracking-tight medical-text-gradient">
-							Django Next Ninja
+							NextJS FastAPI
 						</h1>
 						<p className="text-xs text-muted-foreground">
-							Your Django Next Ninja Starter Kit
+							Your NextJS FastAPI Starter Kit
 						</p>
 					</div>
 				</div>
@@ -22,10 +22,10 @@ export default function SignUpPage() {
 				{/* Hero Text */}
 				<div className="my-auto max-w-md">
 					<h2 className="text-4xl font-bold tracking-tight mb-4">
-						Your Django Next Ninja Starter Kit
+						Your NextJS FastAPI Starter Kit
 					</h2>
 					<p className="text-lg text-muted-foreground">
-						Your Django Next Ninja Starter Kit
+						Your NextJS FastAPI Starter Kit
 					</p>
 
 					{/* Testimonial */}
@@ -39,9 +39,7 @@ export default function SignUpPage() {
 							))}
 						</div>
 						<blockquote className="text-sm text-muted-foreground mb-4">
-							"Django Next Ninja Starter Kit has revolutionized my workday. I
-							now have more time for my patients and less documentation effort.
-							The transcriptions are precise and the anamneses are structured."
+							"NextJS FastAPI Starter Kit has revolutionized my workday."
 						</blockquote>
 						<div className="flex items-center gap-3">
 							<span className="flex h-10 w-10 shrink-0 overflow-hidden rounded-full items-center justify-center bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 font-medium">

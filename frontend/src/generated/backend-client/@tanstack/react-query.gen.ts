@@ -4,7 +4,7 @@ import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanst
 
 import { client } from '../client.gen';
 import { authJwtLogin, authJwtLogout, type Options, registerRegister, resetForgotPassword, resetResetPassword, usersCurrentUser, usersDeleteUser, usersPatchCurrentUser, usersPatchUser, usersUser, verifyRequestToken, verifyVerify } from '../sdk.gen';
-import type { AuthJwtLoginData, AuthJwtLoginError, AuthJwtLoginResponse, AuthJwtLogoutData, RegisterRegisterData, RegisterRegisterError, RegisterRegisterResponse, ResetForgotPasswordData, ResetForgotPasswordError, ResetResetPasswordData, ResetResetPasswordError, UsersCurrentUserData, UsersDeleteUserData, UsersDeleteUserError, UsersDeleteUserResponse, UsersPatchCurrentUserData, UsersPatchCurrentUserError, UsersPatchCurrentUserResponse, UsersPatchUserData, UsersPatchUserError, UsersPatchUserResponse, UsersUserData, VerifyRequestTokenData, VerifyRequestTokenError, VerifyVerifyData, VerifyVerifyError, VerifyVerifyResponse } from '../types.gen';
+import type { AuthJwtLoginData, AuthJwtLoginError, AuthJwtLoginResponse, AuthJwtLogoutData, AuthJwtLogoutResponse, RegisterRegisterData, RegisterRegisterError, RegisterRegisterResponse, ResetForgotPasswordData, ResetForgotPasswordError, ResetResetPasswordData, ResetResetPasswordError, UsersCurrentUserData, UsersDeleteUserData, UsersDeleteUserError, UsersDeleteUserResponse, UsersPatchCurrentUserData, UsersPatchCurrentUserError, UsersPatchCurrentUserResponse, UsersPatchUserData, UsersPatchUserError, UsersPatchUserResponse, UsersUserData, VerifyRequestTokenData, VerifyRequestTokenError, VerifyVerifyData, VerifyVerifyError, VerifyVerifyResponse } from '../types.gen';
 
 /**
  * Auth:Jwt.Login
@@ -26,8 +26,8 @@ export const authJwtLoginMutation = (options?: Partial<Options<AuthJwtLoginData>
 /**
  * Auth:Jwt.Logout
  */
-export const authJwtLogoutMutation = (options?: Partial<Options<AuthJwtLogoutData>>): UseMutationOptions<unknown, DefaultError, Options<AuthJwtLogoutData>> => {
-    const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<AuthJwtLogoutData>> = {
+export const authJwtLogoutMutation = (options?: Partial<Options<AuthJwtLogoutData>>): UseMutationOptions<AuthJwtLogoutResponse, DefaultError, Options<AuthJwtLogoutData>> => {
+    const mutationOptions: UseMutationOptions<AuthJwtLogoutResponse, DefaultError, Options<AuthJwtLogoutData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await authJwtLogout({
                 ...options,

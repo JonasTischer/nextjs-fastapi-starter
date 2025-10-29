@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-	name: "Django Next Ninja",
-	description: "Your Django Next Ninja Starter Kit",
+	name: "NextJS FastAPI",
+	description: "Your NextJS FastAPI Starter Kit",
 	mainNav: [
 		{
 			title: "Home",
