@@ -2,8 +2,8 @@
 
 import { type Client, type Options as Options2, type TDataShape, urlSearchParamsBodySerializer } from './client';
 import { client } from './client.gen';
-import type { AuthJwtLoginData, AuthJwtLoginErrors, AuthJwtLoginResponses, AuthJwtLogoutData, AuthJwtLogoutErrors, AuthJwtLogoutResponses, RegisterRegisterData, RegisterRegisterErrors, RegisterRegisterResponses, ResetForgotPasswordData, ResetForgotPasswordErrors, ResetForgotPasswordResponses, ResetResetPasswordData, ResetResetPasswordErrors, ResetResetPasswordResponses, UsersCurrentUserData, UsersCurrentUserErrors, UsersCurrentUserResponses, UsersDeleteUserData, UsersDeleteUserErrors, UsersDeleteUserResponses, UsersPatchCurrentUserData, UsersPatchCurrentUserErrors, UsersPatchCurrentUserResponses, UsersPatchUserData, UsersPatchUserErrors, UsersPatchUserResponses, UsersUserData, UsersUserErrors, UsersUserResponses, VerifyRequestTokenData, VerifyRequestTokenErrors, VerifyRequestTokenResponses, VerifyVerifyData, VerifyVerifyErrors, VerifyVerifyResponses } from './types.gen';
-import { zAuthJwtLoginData, zAuthJwtLoginResponse, zAuthJwtLogoutData, zAuthJwtLogoutResponse, zRegisterRegisterData, zRegisterRegisterResponse, zResetForgotPasswordData, zResetResetPasswordData, zUsersCurrentUserData, zUsersCurrentUserResponse, zUsersDeleteUserData, zUsersDeleteUserResponse, zUsersPatchCurrentUserData, zUsersPatchCurrentUserResponse, zUsersPatchUserData, zUsersPatchUserResponse, zUsersUserData, zUsersUserResponse, zVerifyRequestTokenData, zVerifyVerifyData, zVerifyVerifyResponse } from './zod.gen';
+import type { AuthJwtLoginData, AuthJwtLoginErrors, AuthJwtLoginResponses, AuthJwtLogoutData, AuthJwtLogoutErrors, AuthJwtLogoutResponses, OauthGoogleOauthJwtAuthorizeData, OauthGoogleOauthJwtAuthorizeErrors, OauthGoogleOauthJwtAuthorizeResponses, OauthGoogleOauthJwtCallbackData, OauthGoogleOauthJwtCallbackErrors, OauthGoogleOauthJwtCallbackResponses, RegisterRegisterData, RegisterRegisterErrors, RegisterRegisterResponses, ResetForgotPasswordData, ResetForgotPasswordErrors, ResetForgotPasswordResponses, ResetResetPasswordData, ResetResetPasswordErrors, ResetResetPasswordResponses, UsersCurrentUserData, UsersCurrentUserErrors, UsersCurrentUserResponses, UsersDeleteUserData, UsersDeleteUserErrors, UsersDeleteUserResponses, UsersPatchCurrentUserData, UsersPatchCurrentUserErrors, UsersPatchCurrentUserResponses, UsersPatchUserData, UsersPatchUserErrors, UsersPatchUserResponses, UsersUserData, UsersUserErrors, UsersUserResponses, VerifyRequestTokenData, VerifyRequestTokenErrors, VerifyRequestTokenResponses, VerifyVerifyData, VerifyVerifyErrors, VerifyVerifyResponses } from './types.gen';
+import { zAuthJwtLoginData, zAuthJwtLoginResponse, zAuthJwtLogoutData, zAuthJwtLogoutResponse, zOauthGoogleOauthJwtAuthorizeData, zOauthGoogleOauthJwtAuthorizeResponse, zOauthGoogleOauthJwtCallbackData, zRegisterRegisterData, zRegisterRegisterResponse, zResetForgotPasswordData, zResetResetPasswordData, zUsersCurrentUserData, zUsersCurrentUserResponse, zUsersDeleteUserData, zUsersDeleteUserResponse, zUsersPatchCurrentUserData, zUsersPatchCurrentUserResponse, zUsersPatchUserData, zUsersPatchUserResponse, zUsersUserData, zUsersUserResponse, zVerifyRequestTokenData, zVerifyVerifyData, zVerifyVerifyResponse } from './zod.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -274,5 +274,35 @@ export const usersPatchUser = <ThrowOnError extends boolean = false>(options: Op
             'Content-Type': 'application/json',
             ...options.headers
         }
+    });
+};
+
+/**
+ * Oauth:Google.Oauth-Jwt.Authorize
+ */
+export const oauthGoogleOauthJwtAuthorize = <ThrowOnError extends boolean = false>(options?: Options<OauthGoogleOauthJwtAuthorizeData, ThrowOnError>) => {
+    return (options?.client ?? client).get<OauthGoogleOauthJwtAuthorizeResponses, OauthGoogleOauthJwtAuthorizeErrors, ThrowOnError>({
+        requestValidator: async (data) => {
+            return await zOauthGoogleOauthJwtAuthorizeData.parseAsync(data);
+        },
+        responseValidator: async (data) => {
+            return await zOauthGoogleOauthJwtAuthorizeResponse.parseAsync(data);
+        },
+        url: '/auth/google/authorize',
+        ...options
+    });
+};
+
+/**
+ * Oauth:Google.Oauth-Jwt.Callback
+ * The response varies based on the authentication backend used.
+ */
+export const oauthGoogleOauthJwtCallback = <ThrowOnError extends boolean = false>(options?: Options<OauthGoogleOauthJwtCallbackData, ThrowOnError>) => {
+    return (options?.client ?? client).get<OauthGoogleOauthJwtCallbackResponses, OauthGoogleOauthJwtCallbackErrors, ThrowOnError>({
+        requestValidator: async (data) => {
+            return await zOauthGoogleOauthJwtCallbackData.parseAsync(data);
+        },
+        url: '/auth/google/callback',
+        ...options
     });
 };

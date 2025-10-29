@@ -2,5 +2,9 @@ import { usersCurrentUserOptions } from "@/generated/backend-client/@tanstack/re
 import { useQuery } from "@tanstack/react-query";
 
 export function useUser() {
-	return useQuery(usersCurrentUserOptions());
+	return useQuery({
+		...usersCurrentUserOptions(),
+		retry: false, // Don't retry auth requests - 401 is definitive
+		staleTime: 5 * 60 * 1000, // Cache for 5 minutes to avoid repeated checks
+	});
 }

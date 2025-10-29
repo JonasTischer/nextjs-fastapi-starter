@@ -53,9 +53,16 @@ generate-client: ## Generate OpenAPI schema and regenerate frontend client
 	@echo "Regenerating frontend client..."
 	cd {{FRONTEND_DIR}} && pnpm run generate-client
 
+
 ## Docker commands
 docker-up-db: ## Start the database
     {{DOCKER_COMPOSE}} up -d db
 
 docker-up-test-db: ## Start the test database
   {{DOCKER_COMPOSE}} up -d db_test
+
+docker-migrate: ## Run database migrations using Alembic
+    {{DOCKER_COMPOSE}} run --rm backend alembic upgrade head
+
+docker-create-migration MESSAGE="": ## Create a new migration. Usage: just create-migration MESSAGE="add scenarios table"
+    {{DOCKER_COMPOSE}} run --rm backend alembic revision --autogenerate -m "{{MESSAGE}}"

@@ -25,10 +25,12 @@ import {
 	useSidebar,
 } from "@/components/ui/sidebar";
 import type { UserRead } from "@/generated/backend-client";
+import { useLogout } from "@/tanstack/features/auth/mutations";
 
 export function NavUser({ user }: { user: UserRead }) {
 	const { isMobile } = useSidebar();
 	const avatar = `https://avatar.vercel.sh/${user.email}`;
+	const logout = useLogout();
 	return (
 		<SidebarMenu>
 			<SidebarMenuItem>
@@ -89,7 +91,7 @@ export function NavUser({ user }: { user: UserRead }) {
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>
+						<DropdownMenuItem onClick={() => logout.mutate({})}>
 							<IconLogout />
 							Log out
 						</DropdownMenuItem>

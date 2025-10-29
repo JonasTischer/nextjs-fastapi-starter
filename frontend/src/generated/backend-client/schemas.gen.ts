@@ -90,6 +90,18 @@ export const HTTPValidationErrorSchema = {
     title: 'HTTPValidationError'
 } as const;
 
+export const OAuth2AuthorizeResponseSchema = {
+    properties: {
+        authorization_url: {
+            type: 'string',
+            title: 'Authorization Url'
+        }
+    },
+    type: 'object',
+    required: ['authorization_url'],
+    title: 'OAuth2AuthorizeResponse'
+} as const;
+
 export const UserCreateSchema = {
     properties: {
         email: {

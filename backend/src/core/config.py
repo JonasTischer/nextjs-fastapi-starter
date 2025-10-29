@@ -25,6 +25,10 @@ class Settings(BaseSettings):
     COOKIE_SECURE: bool = False  # Set to True in production
     COOKIE_SAMESITE: str = "lax"  # lax or strict
 
+    # Google OAuth
+    GOOGLE_OAUTH_CLIENT_ID: str | None = None
+    GOOGLE_OAUTH_CLIENT_SECRET: str | None = None
+
     # Email
     MAIL_USERNAME: str | None = None
     MAIL_PASSWORD: str | None = None

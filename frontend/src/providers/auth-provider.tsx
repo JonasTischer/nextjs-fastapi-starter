@@ -22,13 +22,11 @@ export function AuthProvider({
 
 	if (isError || !user) {
 		redirect("/login");
-		return null;
 	}
 
 	// Type guard to ensure user is UserRead
 	if (typeof user === "string" || typeof user === "boolean") {
 		redirect("/login");
-		return null;
 	}
 
 	return <UserProvider initialUser={user}>{children}</UserProvider>;

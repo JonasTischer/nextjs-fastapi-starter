@@ -56,7 +56,7 @@ dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "fastapi-mail" },
     { name = "fastapi-pagination" },
-    { name = "fastapi-users", extra = ["sqlalchemy"] },
+    { name = "fastapi-users", extra = ["oauth", "sqlalchemy"] },
     { name = "pydantic-settings" },
 ]
 
@@ -79,7 +79,7 @@ requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.117.1" },
     { name = "fastapi-mail", specifier = ">=1.4.1" },
     { name = "fastapi-pagination", specifier = ">=0.14.1" },
-    { name = "fastapi-users", extras = ["sqlalchemy"], specifier = ">=14.0.1" },
+    { name = "fastapi-users", extras = ["sqlalchemy", "oauth"], specifier = ">=14.0.1" },
     { name = "pydantic-settings", specifier = ">=2.11" },
 ]
 
@@ -438,6 +438,9 @@ wheels = [
 ]
 
 [package.optional-dependencies]
+oauth = [
+    { name = "httpx-oauth" },
+]
 sqlalchemy = [
     { name = "fastapi-users-db-sqlalchemy" },
 ]
@@ -554,6 +557,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/b1/df/48c586a5fe32a0f01324ee087459e112ebb7224f646c0b5023f5e79e9956/httpx-0.28.1.tar.gz", hash = "sha256:75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc", size = 141406 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl", hash = "sha256:d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad", size = 73517 },
+]
+
+[[package]]
+name = "httpx-oauth"
+version = "0.16.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2f/07/db4ad128da3926be22eec586aa87dafd8840c9eb03fe88505fbed016b5c6/httpx_oauth-0.16.1.tar.gz", hash = "sha256:7402f061f860abc092ea4f5c90acfc576a40bbb79633c1d2920f1ca282c296ee", size = 44148 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/45/4b/2b81e876abf77b4af3372aff731f4f6722840ebc7dcfd85778eaba271733/httpx_oauth-0.16.1-py3-none-any.whl", hash = "sha256:2fcad82f80f28d0473a0fc4b4eda223dc952050af7e3a8c8781342d850f09fb5", size = 38056 },
 ]
 
 [[package]]

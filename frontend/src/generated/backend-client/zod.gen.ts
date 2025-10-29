@@ -61,6 +61,13 @@ export const zHttpValidationError = z.object({
 });
 
 /**
+ * OAuth2AuthorizeResponse
+ */
+export const zOAuth2AuthorizeResponse = z.object({
+    authorization_url: z.string()
+});
+
+/**
  * UserCreate
  */
 export const zUserCreate = z.object({
@@ -260,3 +267,39 @@ export const zUsersPatchUserData = z.object({
  * Successful Response
  */
 export const zUsersPatchUserResponse = zUserRead;
+
+export const zOauthGoogleOauthJwtAuthorizeData = z.object({
+    body: z.optional(z.never()),
+    path: z.optional(z.never()),
+    query: z.optional(z.object({
+        scopes: z.optional(z.array(z.string()))
+    }))
+});
+
+/**
+ * Successful Response
+ */
+export const zOauthGoogleOauthJwtAuthorizeResponse = zOAuth2AuthorizeResponse;
+
+export const zOauthGoogleOauthJwtCallbackData = z.object({
+    body: z.optional(z.never()),
+    path: z.optional(z.never()),
+    query: z.optional(z.object({
+        code: z.optional(z.union([
+            z.string(),
+            z.null()
+        ])),
+        code_verifier: z.optional(z.union([
+            z.string(),
+            z.null()
+        ])),
+        state: z.optional(z.union([
+            z.string(),
+            z.null()
+        ])),
+        error: z.optional(z.union([
+            z.string(),
+            z.null()
+        ]))
+    }))
+});

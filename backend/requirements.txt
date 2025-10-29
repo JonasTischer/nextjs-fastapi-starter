@@ -76,3 +76,4 @@ virtualenv==20.28.1
 watchdog==5.0.3
 watchfiles==1.0.3
 websockets==14.1
+httpx-oauth==0.15.1

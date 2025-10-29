@@ -7,7 +7,7 @@ from sqlalchemy import NullPool
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from .config import settings
-from src.auth.models import Base, User
+from src.auth.models import Base, User, OAuthAccount
 
 
 parsed_db_url = urlparse(settings.DATABASE_URL)
@@ -37,4 +37,4 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
-    yield SQLAlchemyUserDatabase(session, User)
+    yield SQLAlchemyUserDatabase(session, User, OAuthAccount)

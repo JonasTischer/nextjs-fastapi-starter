@@ -71,6 +71,16 @@ export type HttpValidationError = {
 };
 
 /**
+ * OAuth2AuthorizeResponse
+ */
+export type OAuth2AuthorizeResponse = {
+    /**
+     * Authorization Url
+     */
+    authorization_url: string;
+};
+
+/**
  * UserCreate
  */
 export type UserCreate = {
@@ -572,3 +582,77 @@ export type UsersPatchUserResponses = {
 };
 
 export type UsersPatchUserResponse = UsersPatchUserResponses[keyof UsersPatchUserResponses];
+
+export type OauthGoogleOauthJwtAuthorizeData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Scopes
+         */
+        scopes?: Array<string>;
+    };
+    url: '/auth/google/authorize';
+};
+
+export type OauthGoogleOauthJwtAuthorizeErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type OauthGoogleOauthJwtAuthorizeError = OauthGoogleOauthJwtAuthorizeErrors[keyof OauthGoogleOauthJwtAuthorizeErrors];
+
+export type OauthGoogleOauthJwtAuthorizeResponses = {
+    /**
+     * Successful Response
+     */
+    200: OAuth2AuthorizeResponse;
+};
+
+export type OauthGoogleOauthJwtAuthorizeResponse = OauthGoogleOauthJwtAuthorizeResponses[keyof OauthGoogleOauthJwtAuthorizeResponses];
+
+export type OauthGoogleOauthJwtCallbackData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Code
+         */
+        code?: string | null;
+        /**
+         * Code Verifier
+         */
+        code_verifier?: string | null;
+        /**
+         * State
+         */
+        state?: string | null;
+        /**
+         * Error
+         */
+        error?: string | null;
+    };
+    url: '/auth/google/callback';
+};
+
+export type OauthGoogleOauthJwtCallbackErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorModel;
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type OauthGoogleOauthJwtCallbackError = OauthGoogleOauthJwtCallbackErrors[keyof OauthGoogleOauthJwtCallbackErrors];
+
+export type OauthGoogleOauthJwtCallbackResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};

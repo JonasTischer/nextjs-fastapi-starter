@@ -17,6 +17,7 @@ from fastapi_users.authentication import (
     JWTStrategy,
 )
 from fastapi_users.db import SQLAlchemyUserDatabase
+from httpx_oauth.clients.google import GoogleOAuth2
 
 from src.core.config import settings
 from src.core.database import get_user_db
@@ -25,6 +26,13 @@ from .models import User
 from .schemas import UserCreate
 
 AUTH_URL_PATH = "auth"
+
+# Google OAuth client
+google_oauth_client = GoogleOAuth2(
+    settings.GOOGLE_OAUTH_CLIENT_ID or "",
+    settings.GOOGLE_OAUTH_CLIENT_SECRET or "",
+    scopes=["openid", "email", "profile"],  # Standard OpenID Connect scopes
+)
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
@@ -68,7 +76,27 @@ async def get_user_manager(user_db: SQLAlchemyUserDatabase = Depends(get_user_db
     yield UserManager(user_db)
 
 
+class RedirectCookieTransport(CookieTransport):
+    """Custom cookie transport that redirects to frontend after OAuth login."""
+
+    async def get_login_response(self, token: str):
+        response = await super().get_login_response(token)
+        # For OAuth callbacks, redirect to frontend after setting cookie
+        response.status_code = 307
+        response.headers["Location"] = f"{settings.FRONTEND_URL}/auth-callback"
+        return response
+
+
 cookie_transport = CookieTransport(
+    cookie_name="access_token",
+    cookie_max_age=settings.ACCESS_TOKEN_EXPIRE_SECONDS,
+    cookie_httponly=True,
+    cookie_secure=settings.COOKIE_SECURE,
+    cookie_samesite=settings.COOKIE_SAMESITE,
+)
+
+# OAuth-specific cookie transport with redirect
+oauth_cookie_transport = RedirectCookieTransport(
     cookie_name="access_token",
     cookie_max_age=settings.ACCESS_TOKEN_EXPIRE_SECONDS,
     cookie_httponly=True,
@@ -87,6 +115,13 @@ def get_jwt_strategy() -> JWTStrategy:
 auth_backend = AuthenticationBackend(
     name="jwt",
     transport=cookie_transport,
+    get_strategy=get_jwt_strategy,
+)
+
+# OAuth-specific auth backend with redirect
+oauth_auth_backend = AuthenticationBackend(
+    name="oauth-jwt",
+    transport=oauth_cookie_transport,
     get_strategy=get_jwt_strategy,
 )
 

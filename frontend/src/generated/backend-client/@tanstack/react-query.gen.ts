@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { authJwtLogin, authJwtLogout, type Options, registerRegister, resetForgotPassword, resetResetPassword, usersCurrentUser, usersDeleteUser, usersPatchCurrentUser, usersPatchUser, usersUser, verifyRequestToken, verifyVerify } from '../sdk.gen';
-import type { AuthJwtLoginData, AuthJwtLoginError, AuthJwtLoginResponse, AuthJwtLogoutData, AuthJwtLogoutResponse, RegisterRegisterData, RegisterRegisterError, RegisterRegisterResponse, ResetForgotPasswordData, ResetForgotPasswordError, ResetResetPasswordData, ResetResetPasswordError, UsersCurrentUserData, UsersDeleteUserData, UsersDeleteUserError, UsersDeleteUserResponse, UsersPatchCurrentUserData, UsersPatchCurrentUserError, UsersPatchCurrentUserResponse, UsersPatchUserData, UsersPatchUserError, UsersPatchUserResponse, UsersUserData, VerifyRequestTokenData, VerifyRequestTokenError, VerifyVerifyData, VerifyVerifyError, VerifyVerifyResponse } from '../types.gen';
+import { authJwtLogin, authJwtLogout, oauthGoogleOauthJwtAuthorize, oauthGoogleOauthJwtCallback, type Options, registerRegister, resetForgotPassword, resetResetPassword, usersCurrentUser, usersDeleteUser, usersPatchCurrentUser, usersPatchUser, usersUser, verifyRequestToken, verifyVerify } from '../sdk.gen';
+import type { AuthJwtLoginData, AuthJwtLoginError, AuthJwtLoginResponse, AuthJwtLogoutData, AuthJwtLogoutResponse, OauthGoogleOauthJwtAuthorizeData, OauthGoogleOauthJwtCallbackData, RegisterRegisterData, RegisterRegisterError, RegisterRegisterResponse, ResetForgotPasswordData, ResetForgotPasswordError, ResetResetPasswordData, ResetResetPasswordError, UsersCurrentUserData, UsersDeleteUserData, UsersDeleteUserError, UsersDeleteUserResponse, UsersPatchCurrentUserData, UsersPatchCurrentUserError, UsersPatchCurrentUserResponse, UsersPatchUserData, UsersPatchUserError, UsersPatchUserResponse, UsersUserData, VerifyRequestTokenData, VerifyRequestTokenError, VerifyVerifyData, VerifyVerifyError, VerifyVerifyResponse } from '../types.gen';
 
 /**
  * Auth:Jwt.Login
@@ -249,4 +249,45 @@ export const usersPatchUserMutation = (options?: Partial<Options<UsersPatchUserD
         }
     };
     return mutationOptions;
+};
+
+export const oauthGoogleOauthJwtAuthorizeQueryKey = (options?: Options<OauthGoogleOauthJwtAuthorizeData>) => createQueryKey('oauthGoogleOauthJwtAuthorize', options);
+
+/**
+ * Oauth:Google.Oauth-Jwt.Authorize
+ */
+export const oauthGoogleOauthJwtAuthorizeOptions = (options?: Options<OauthGoogleOauthJwtAuthorizeData>) => {
+    return queryOptions({
+        queryFn: async ({ queryKey, signal }) => {
+            const { data } = await oauthGoogleOauthJwtAuthorize({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: oauthGoogleOauthJwtAuthorizeQueryKey(options)
+    });
+};
+
+export const oauthGoogleOauthJwtCallbackQueryKey = (options?: Options<OauthGoogleOauthJwtCallbackData>) => createQueryKey('oauthGoogleOauthJwtCallback', options);
+
+/**
+ * Oauth:Google.Oauth-Jwt.Callback
+ * The response varies based on the authentication backend used.
+ */
+export const oauthGoogleOauthJwtCallbackOptions = (options?: Options<OauthGoogleOauthJwtCallbackData>) => {
+    return queryOptions({
+        queryFn: async ({ queryKey, signal }) => {
+            const { data } = await oauthGoogleOauthJwtCallback({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: oauthGoogleOauthJwtCallbackQueryKey(options)
+    });
 };
